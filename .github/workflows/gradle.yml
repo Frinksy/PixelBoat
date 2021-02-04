@@ -9,11 +9,11 @@ on:
       - 'Implementation/**'
       - '.github/workflows/**'
     branches: [ main ]
-  pull_request:
-    paths: 
-      - 'Implementation/**'
-      - '.github/workflows/**'
-    branches: [ main ]
+  workflow_run:
+    workflows:
+      - Update Documentation
+    types:
+      - completed
 
 jobs:
   build:
