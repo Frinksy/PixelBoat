@@ -20,8 +20,14 @@ git config --local user.name "Frinksy Workflow" &&
 echo Stage all changes &&
 git add docs/ &&
 git add UML/PNG/ && git add UML/SVG/ &&
-echo Commit changes &&
-git commit -m "Update docs via Github Workflow" &&
-echo Push changes &&
-git push &&
+echo Check for changes
+
+if git diff --staged --quiet ; then
+    echo No changes found
+else
+    echo Changes found, creating a commit &&
+    git commit -m "Update docs via Github Workflow" &&
+    echo Push changes &&
+    git push &&
+fi
 echo Done!
