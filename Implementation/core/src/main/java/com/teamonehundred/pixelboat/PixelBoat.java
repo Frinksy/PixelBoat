@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.teamonehundred.pixelboat.scenes.Scene;
 import com.teamonehundred.pixelboat.scenes.SceneBoatSelection;
 import com.teamonehundred.pixelboat.scenes.SceneDifficulty;
+import com.teamonehundred.pixelboat.scenes.SceneLoadScreen;
 import com.teamonehundred.pixelboat.scenes.SceneMainGame;
 import com.teamonehundred.pixelboat.scenes.SceneOptionsMenu;
 import com.teamonehundred.pixelboat.scenes.SceneResultsScreen;
@@ -23,7 +24,7 @@ import com.teamonehundred.pixelboat.scenes.SceneTutorial;
  * @author Umer Fakher JavaDoc by Umer Fakher
  */
 public class PixelBoat extends ApplicationAdapter {
-  protected Scene[] allScenes;  // stores all game scenes and their data
+  public Scene[] allScenes;  // stores all game scenes and their data
   protected SpriteBatch batch;  // thing that draws the sprites
 
   // id of current game state
@@ -43,7 +44,7 @@ public class PixelBoat extends ApplicationAdapter {
    */
   @Override
   public void create() {
-    allScenes = new Scene[7];
+    allScenes = new Scene[8];
     allScenes[0] = new SceneStartScreen();
     allScenes[1] = new SceneMainGame();
     allScenes[2] = new SceneOptionsMenu();
@@ -51,7 +52,7 @@ public class PixelBoat extends ApplicationAdapter {
     allScenes[4] = new SceneResultsScreen();
     allScenes[5] = new SceneBoatSelection();
     allScenes[6] = new SceneDifficulty();
-
+    allScenes[7] = new SceneLoadScreen(this);
     batch = new SpriteBatch();
   }
 

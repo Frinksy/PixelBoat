@@ -252,7 +252,7 @@ public class SceneMainGame implements Scene {
    * @param saveName the name of the save state
    * @throws IOException if an ByteArrayInputStream or ObjectInputStream cannot be created
    */
-  private void restoreGame(String saveName) throws IOException {
+  public void restoreGame(String saveName) throws IOException {
 
     // Get serialized object from preferences
     Preferences prefs = Gdx.app.getPreferences("Saves");
