@@ -14,14 +14,14 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.ArrayList;
 
 /**
- * SceneDifficulty.
+ * Represents the difficulty menu where the player choices a diffculty 
+ * before the start of the race
+ * @author Henry Overton
  */
 public class SceneDifficulty implements Scene {
+
   protected int sceneId = 6;
-
-  protected boolean isNewClick = false;
-
-  protected int numButtons = 4;
+  public int diffLevel = 1;
 
   protected Texture bg;
   protected Sprite bgSprite;
@@ -49,11 +49,9 @@ public class SceneDifficulty implements Scene {
   protected Viewport fillViewport;
   protected OrthographicCamera fillCamera;
 
-   
-  public int diffDecrease = 1;
-
   /**
-   * Create a SceneDifficulty.
+   * Main constructor for SceneDifficulty.
+   * @author Henry Overton
    */
   public SceneDifficulty() {
     fillCamera = new OrthographicCamera();
@@ -120,12 +118,16 @@ public class SceneDifficulty implements Scene {
   }
 
   /**
-   * Update the scene.
+   * Update function for SceneDifficulty
+   * Ends SceneDifficulty based on the user input
+   * Changes diffLevel dependent on user input
+   * @return SceneId for next scene which is either the same scene or main game
+   * @author Henry Overton
    */
   public int update() {
 
     // Update the position of the arrow
-    switch (diffDecrease) {
+    switch (diffLevel) {
       case 1:
         arrowSprite.setY(easySprite.getY());
         break;
@@ -147,7 +149,7 @@ public class SceneDifficulty implements Scene {
 
       if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
         System.out.println("hard");
-        diffDecrease = 3;
+        diffLevel = 3;
       }
 
     } else {
@@ -160,7 +162,7 @@ public class SceneDifficulty implements Scene {
 
       if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
         System.out.println("med");
-        diffDecrease = 2;
+        diffLevel = 2;
       }
 
     } else {
@@ -173,7 +175,7 @@ public class SceneDifficulty implements Scene {
 
       if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
         System.out.println("esay");
-        diffDecrease = 1;
+        diffLevel = 1;
       }
     } else {
       easySprite.setTexture(easy);
@@ -193,7 +195,9 @@ public class SceneDifficulty implements Scene {
   }
   
   /**
-   * Draw the scene.
+   * Draw function for SceneDifficulty
+   * @param batch SpriteBatch used for drawing the menu
+   * @author Henry Overton
    */
   public void draw(SpriteBatch batch) {
     Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
@@ -208,11 +212,22 @@ public class SceneDifficulty implements Scene {
     arrowSprite.draw(batch);
     batch.end();
   }
- 
-  public int getDiffDecrease() {
-    return diffDecrease;
+  /**
+   * Getter of diffLevel 
+   * @return diffLevel Integer for player difficulty level
+   * @author Henry Overton
+   */
+  public int getdiffLevel() {
+    return diffLevel;
   }
 
+  /**
+   * Resize used to resize the screen for SceneDifficulty
+   *
+   * @param width  int for scene
+   * @param height int for scene
+   * @author Henry Overton
+   */
   public void resize(int width, int height) {
     fillViewport.update(width, height);
     fillCamera.position.set(fillCamera.viewportWidth / 4, fillCamera.viewportHeight / 4, 0);

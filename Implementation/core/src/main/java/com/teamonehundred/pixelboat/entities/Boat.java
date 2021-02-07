@@ -415,7 +415,7 @@ public abstract class Boat extends MovableObject implements CollisionObject {
   }
 
   /**
-   * Reset max_speed, durability and stamina to defaults.
+   * Reset maxSpeed, durability and stamina to defaults.
    */
   public void reset() {
     this.maxSpeed = 15;
@@ -424,7 +424,7 @@ public abstract class Boat extends MovableObject implements CollisionObject {
   }
 
   /**
-   * Gets current best time for boat from its list of leg_times.
+   * Gets current best time for boat from its list of legTimes.
    *
    * @return long time in milliseconds.
    */
