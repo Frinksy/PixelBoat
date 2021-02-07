@@ -8,27 +8,25 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.teamonehundred.pixelboat.PixelBoat;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * SceneLoadScreen.
  */
 public class SceneLoadScreen implements Scene {
 
-  Stage stage = new Stage(new ScreenViewport());
-  boolean goToMenu = false;
-  boolean shouldInitialize = false;
-  boolean loadGame = false;
+  Stage stage;
+  boolean shouldGoToMenu = false;
+  boolean shouldInitialize = true;
+  boolean shouldLoadGame = false;
   boolean shouldDelete = false;
   PixelBoat parent;
   SelectBox<String> choose;
@@ -42,57 +40,63 @@ public class SceneLoadScreen implements Scene {
    */
   public SceneLoadScreen(PixelBoat parent) {
     this.parent = parent;
-    initialize();
 
   }
 
   private void initialize() {
-    // Find all the saves available
+    
+    
+    // Load the preferences containing the saves
     prefs = Gdx.app.getPreferences("Saves");
-
+    
+    // Generate all the UI items (save selector, load, delete and return buttons)
+    stage = new Stage(new ScreenViewport());
 
     Skin skin = new Skin(Gdx.files.internal("clean-crispy/clean-crispy-ui.json"));
     choose = new SelectBox<String>(skin);
     choose.setItems((String[]) prefs.get().keySet().toArray(new String[prefs.get().size()]));
     
-    final TextButton return_button = new TextButton("Back to menu", skin);
-    return_button.addListener(new ChangeListener() {
+    final TextButton returnButton = new TextButton("Back to menu", skin);
+    returnButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        goToMenu = true;
+        shouldGoToMenu = true;
       }
     });
 
-    final TextButton load_button = new TextButton("Load Selected", skin);
-    load_button.addListener(new ChangeListener() {
+    final TextButton loadButton = new TextButton("Load Selected", skin);
+    loadButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        loadGame = true;
+        shouldLoadGame = true;
       }
     });
 
-    final TextButton remove_button = new TextButton("Delete Selected", skin);
-    remove_button.addListener(new ChangeListener() {
+    final TextButton deleteButton = new TextButton("Delete Selected", skin);
+    deleteButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         shouldDelete = true;
       }
 
     });
+
+    // Set up screen with items
     layout = new Table();
     layout.setFillParent(true);
 
     layout.add(choose).colspan(4);
     layout.row().pad(20, 50, 0, 50);
-    layout.add(return_button).colspan(4);
+    layout.add(returnButton).colspan(4);
     layout.row().pad(20, 50, 0, 50);
-    layout.add(load_button).colspan(4);
+    layout.add(loadButton).colspan(4);
     layout.row().pad(20, 50, 0, 50);
-    layout.add(remove_button).colspan(4);
+    layout.add(deleteButton).colspan(4);
 
     stage.addActor(layout);
     Gdx.input.setInputProcessor(stage);
 
+    // Load background
     bg = new Texture("start_screen.png");
     bgSprite = new Sprite(bg);
     bgSprite.setPosition(0, 0);
@@ -116,63 +120,73 @@ public class SceneLoadScreen implements Scene {
   @Override
   public int update() {
 
-    if (goToMenu) {
+    if (shouldGoToMenu) {
+
       shouldInitialize = true;
-      goToMenu = false;
+      shouldGoToMenu = false;
+
       // reset the race in case something failed to load
-      parent.allScenes[1] = new SceneMainGame();
-      return 0;
+      // eg. IOException during loading a save
+      parent.allScenes[PixelBoat.GAME_SCENE] = new SceneMainGame();
+      return PixelBoat.MAIN_MENU;
+
     } else if (shouldInitialize) {
+
       shouldInitialize = false;
       initialize();
-      return 7;
-    } else if (loadGame) {
-      loadGame = false;
+      return PixelBoat.LOAD_SCENE;
+
+    } else if (shouldLoadGame) {
+      shouldLoadGame = false;
       shouldInitialize = true;
+      
       try {
         String saveName = choose.getSelected();
         if (saveName == null) {
           shouldInitialize = false;
-          return 7;
+          return PixelBoat.LOAD_SCENE;
         }
-        ((SceneMainGame) parent.allScenes[1]).restoreGame(saveName);
+        ((SceneMainGame) parent.allScenes[1]).restoreGame(saveName, prefs);
       } catch (IOException e) {
         // If it fails then do not initialize
         shouldInitialize = false;
-        return 7;
+        return PixelBoat.LOAD_SCENE;
       }
 
-      loadGame = false;
-      return 1;
+      // Exit to the game, stop listening for inputs
+      shouldLoadGame = false;
+      Gdx.input.setInputProcessor(null);
+      return PixelBoat.GAME_SCENE;
+
     } else if (shouldDelete) {
       shouldDelete = false;
 
       // Don't do anything if the selection is empty
       if (choose.getSelected() == null) {
-        return 7;
+        return PixelBoat.LOAD_SCENE;
       }
 
       // Delete selected save from the preferenes
       prefs.remove(choose.getSelected());
       prefs.flush();
 
-      // Regenerate the choose button
-      choose.clearItems();
-      choose.setItems((prefs.get().keySet().toArray(new String[prefs.get().size()])));
+      initialize();
 
-      return 7;
+      return PixelBoat.LOAD_SCENE;
 
 
     }
 
-    return 7;
+    return PixelBoat.LOAD_SCENE;
 
   }
 
   @Override
   public void resize(int width, int height) {
-    // TODO Auto-generated method stub
-
+     
+    Viewport viewport = stage.getViewport();
+    viewport.setScreenSize(width, height);
+    stage.setViewport(viewport);
   }
 
 
