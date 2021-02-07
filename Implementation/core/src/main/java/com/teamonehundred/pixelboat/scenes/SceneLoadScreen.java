@@ -127,7 +127,7 @@ public class SceneLoadScreen implements Scene {
 
       // reset the race in case something failed to load
       // eg. IOException during loading a save
-      parent.allScenes[PixelBoat.GAME_SCENE] = new SceneMainGame();
+      ((SceneMainGame) parent.allScenes[PixelBoat.GAME_SCENE]).initialize();
       return PixelBoat.MAIN_MENU;
 
     } else if (shouldInitialize) {
