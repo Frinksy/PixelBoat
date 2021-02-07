@@ -10,7 +10,7 @@ import com.teamonehundred.pixelboat.scenes.SceneLoadScreen;
 import com.teamonehundred.pixelboat.scenes.SceneMainGame;
 import com.teamonehundred.pixelboat.scenes.SceneOptionsMenu;
 import com.teamonehundred.pixelboat.scenes.SceneResultsScreen;
-import com.teamonehundred.pixelboat.scenes.SceneSaveGame;
+import com.teamonehundred.pixelboat.scenes.SceneSaveScreen;
 import com.teamonehundred.pixelboat.scenes.SceneStartScreen;
 import com.teamonehundred.pixelboat.scenes.SceneTutorial;
 
@@ -66,7 +66,7 @@ public class PixelBoat extends ApplicationAdapter {
     allScenes[BOAT_SELECT] = new SceneBoatSelection();
     allScenes[DIFFICULTY_SELECT] = new SceneDifficulty();
     allScenes[LOAD_SCENE] = new SceneLoadScreen(this);
-    allScenes[SAVE_SCENE] = new SceneSaveGame(this);
+    allScenes[SAVE_SCENE] = new SceneSaveScreen(this);
     batch = new SpriteBatch();
   }
 

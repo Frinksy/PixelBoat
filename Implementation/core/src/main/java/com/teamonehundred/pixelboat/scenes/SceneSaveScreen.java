@@ -19,9 +19,9 @@ import com.teamonehundred.pixelboat.PixelBoat;
 import java.io.IOException;
 
 /**
- * SceneSaveGame.
+ * SceneSaveScreen.
  */
-public class SceneSaveGame implements Scene {
+public class SceneSaveScreen implements Scene {
 
   Stage stage;
   Preferences prefs;
@@ -36,7 +36,7 @@ public class SceneSaveGame implements Scene {
 
   PixelBoat parent;
 
-  public SceneSaveGame(PixelBoat parent) {
+  public SceneSaveScreen(PixelBoat parent) {
     this.parent = parent;
   }
 
