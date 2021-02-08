@@ -10,9 +10,6 @@ import com.teamonehundred.pixelboat.entities.PlayerBoat;
 public class DiffTest {
     int diffLevel;
 
-    public static void setUpTest(){
-
-    }
     @Test
     public void testEasy(){
         diffLevel = 1;
@@ -20,13 +17,10 @@ public class DiffTest {
         float expectedStaminaRegain = .002f;
         float expectedStaminaUsage = 0.005;
         float expectedDurabilityPerHit = .1f;
-        testBoat.setDiff(diffLevel)
+        testBoat.setDiff(diffLevel);
         assertEquals(expectedStaminaRegain, testBoat.getStaminaRegain, "Easy: Stamina regain does not match")
         assertEquals(expectedStaminaUsage, testBoat.getStaminaUsage, "Easy: Stamina usage does not match")
         assertEquals(expectedStamina, testBoat.getStaminaRegain, "Easy: Stamina regain does not match")
-
-
-
     }
     @Test
     public void testMedium(){
@@ -34,8 +28,8 @@ public class DiffTest {
         PlayerBoat testBoat = new PlayerBoat();
         float expectedStaminaRegain = .002f*0.7f;
         float expectedStaminaUsage = 0.005*1.3f;
-        float expectedDurabilityPerHit = .1f*3.0f;
-        testBoat.setDiff(diffLevel)
+        float expectedDurabilityPerHit = .1f*1.7f;
+        testBoat.setDiff(diffLevel);
         assertEquals(expectedStaminaRegain, testBoat.getStaminaRegain, "Easy: Stamina regain does not match")
         assertEquals(expectedStaminaUsage, testBoat.getStaminaUsage, "Easy: Stamina usage does not match")
         assertEquals(expectedStamina, testBoat.getStaminaRegain, "Easy: Stamina regain does not match")
@@ -46,13 +40,12 @@ public class DiffTest {
         diffLevel = 3;
         PlayerBoat testBoat = new PlayerBoat();
         float expectedStaminaRegain = .002f*0.4f;
-        float expectedStaminaUsage = 0.005*1.7f;
-        float expectedDurabilityPerHit = .1f;
-        testBoat.setDiff(diffLevel)
+        float expectedStaminaUsage = 0.005*1.6f;
+        float expectedDurabilityPerHit = .1f*2.5f;
+        testBoat.setDiff(diffLevel);
         assertEquals(expectedStaminaRegain, testBoat.getStaminaRegain, "Easy: Stamina regain does not match")
         assertEquals(expectedStaminaUsage, testBoat.getStaminaUsage, "Easy: Stamina usage does not match")
         assertEquals(expectedStamina, testBoat.getStaminaRegain, "Easy: Stamina regain does not match")
 
     }
-    
 }
