@@ -92,8 +92,8 @@ public class DiffTest {
     assertEquals(expectedStaminaUsage, testBoat.getStaminaUsage(), 
         "Med: Stamina usage does not match");
 
-    float expectedDurabilityPerHit = .1f * 1.7f;
-    assertEquals(expectedDurabilityPerHit, testBoat.getStaminaRegain(), 
+    float expectedDurabilityPerHit = .1f * 2.0f;
+    assertEquals(expectedDurabilityPerHit, testBoat.getDurabilityPerHit(),
         "Med: durabilityPerHit does not match");
 
   }
@@ -111,7 +111,7 @@ public class DiffTest {
     assertEquals(expectedStaminaRegain, testBoat.getStaminaRegain(), 
         "Hard: Stamina regain does not match");
 
-    float expectedStaminaUsage = 0.005f * 1.6f;
+    float expectedStaminaUsage = 0.005f * 1.7f;
     assertEquals(expectedStaminaUsage, testBoat.getStaminaUsage(), 
         "Hard: Stamina usage does not match");
 
