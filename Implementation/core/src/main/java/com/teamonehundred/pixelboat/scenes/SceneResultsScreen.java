@@ -13,6 +13,7 @@ import com.teamonehundred.pixelboat.entities.Boat;
 import com.teamonehundred.pixelboat.entities.PlayerBoat;
 import java.util.List;
 
+
 /**
  * Scene Class for Results Screen. Contains all functionality
  * for Displaying results screen after each leg.
@@ -149,6 +150,13 @@ public class SceneResultsScreen implements Scene {
 
       // Using label template format draw the name of boat, time of just completed leg,
       // race penalty added
+      // Sleeps so that list can be populated
+      try {
+        Thread.sleep(1);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        return;
+      }
       String labelText = String.format(labelTemplate, b.getName(),
           b.getLegTimes().get(b.getLegTimes().size() - 1), b.getTimeToAdd());
 
