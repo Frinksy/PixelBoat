@@ -264,16 +264,29 @@ public class PlayerBoat extends Boat {
   }
 
   /**
-   * getter for staminaRegain
-   * @return Float staminaRegain
+   * getter for staminaRegain.
+   *
+   * @return staminaRegain
    */
-  public float getStaminaRegain(){
+  public float getStaminaRegain() {
     return staminaRegen;
   }
-  public float getStaminaUsage(){
+
+  /**
+   * Getter for staminaUsage.
+   *
+   * @return staminaUsage
+   */
+  public float getStaminaUsage() {
     return staminaUsage;
   }
-  public float getDurabilityPerHit(){
+
+  /**
+   * Getter for durabilityPerHit.
+   *
+   * @return durabilityPerHit
+   */
+  public float getDurabilityPerHit() {
     return durabilityPerHit;
   }
 

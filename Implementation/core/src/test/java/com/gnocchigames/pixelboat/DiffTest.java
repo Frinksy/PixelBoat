@@ -13,11 +13,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+/**
+ * Unit tests for Difficulty settings.
+ */
 public class DiffTest {
   private static Application application;
 
+  /**
+   * Setup the test environment.
+   */
   @BeforeAll
-  
   public static void setupTest() {
     application = new HeadlessApplication(new ApplicationListener() {
 
