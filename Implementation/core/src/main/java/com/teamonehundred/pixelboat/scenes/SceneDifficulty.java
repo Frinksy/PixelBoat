@@ -14,8 +14,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.ArrayList;
 
 /**
+ * SceneDifficulty.
  * Represents the difficulty menu where the player choices a diffculty 
- * before the start of the race
+ * before the start of the race.
+ *
  * @author Henry Overton
  */
 public class SceneDifficulty implements Scene {
@@ -51,6 +53,7 @@ public class SceneDifficulty implements Scene {
 
   /**
    * Main constructor for SceneDifficulty.
+   *
    * @author Henry Overton
    */
   public SceneDifficulty() {
@@ -118,9 +121,10 @@ public class SceneDifficulty implements Scene {
   }
 
   /**
-   * Update function for SceneDifficulty
+   * Update function for SceneDifficulty.
    * Ends SceneDifficulty based on the user input
    * Changes diffLevel dependent on user input
+   *
    * @return SceneId for next scene which is either the same scene or main game
    * @author Henry Overton
    */
@@ -195,8 +199,10 @@ public class SceneDifficulty implements Scene {
   }
   
   /**
-   * Draw function for SceneDifficulty
+   * Draw function for SceneDifficulty.
+   *
    * @param batch SpriteBatch used for drawing the menu
+   *
    * @author Henry Overton
    */
   public void draw(SpriteBatch batch) {
@@ -212,9 +218,12 @@ public class SceneDifficulty implements Scene {
     arrowSprite.draw(batch);
     batch.end();
   }
+
   /**
-   * Getter of diffLevel 
+   * Getter of diffLevel.
+   *
    * @return diffLevel Integer for player difficulty level
+   *
    * @author Henry Overton
    */
   public int getdiffLevel() {
@@ -222,7 +231,7 @@ public class SceneDifficulty implements Scene {
   }
 
   /**
-   * Resize used to resize the screen for SceneDifficulty
+   * Resize used to resize the screen for SceneDifficulty.
    *
    * @param width  int for scene
    * @param height int for scene

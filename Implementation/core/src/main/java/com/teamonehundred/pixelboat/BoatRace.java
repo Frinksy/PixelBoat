@@ -50,7 +50,7 @@ public class BoatRace {
   public boolean isFinished = false;
   public long totalFrames = 0;
 
-  public int legNo =0;
+  public int legNo = 0;
 
   /**
    * Main constructor for a BoatRace.

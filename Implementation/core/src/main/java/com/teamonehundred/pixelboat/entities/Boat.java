@@ -431,13 +431,15 @@ public abstract class Boat extends MovableObject implements CollisionObject {
   public long getBestTime() {
     return legTimes.get(1) + legTimes.get(2);
   }
+
   /**
-   * Sets time of trial leg to zero
+   * Sets time of trial leg to zero.
+   *
    * @author Henry Overton
    * 
    */
   public void setTrialLeg() {
-    legTimes.set(0, 0l);
+    legTimes.set(0, 0L);
   }
 }
 
