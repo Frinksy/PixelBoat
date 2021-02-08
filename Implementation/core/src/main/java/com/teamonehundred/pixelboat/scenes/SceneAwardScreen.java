@@ -13,9 +13,9 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * SceneAwardScreen
+ * SceneAwardScreen.
  */
-public class SceneAwardScreen implements Scene{
+public class SceneAwardScreen implements Scene {
     
   protected int sceneId = 10;
 
@@ -31,7 +31,7 @@ public class SceneAwardScreen implements Scene{
 
 
   /**
-   * Create a SceneAwardScreen
+   * Create a SceneAwardScreen.
    */
   public SceneAwardScreen() {
     fillCamera = new OrthographicCamera();
@@ -53,9 +53,9 @@ public class SceneAwardScreen implements Scene{
 
   }
 
-    /**
-     * Update the scene
-     */
+  /**
+   * Update the scene.
+    */
   public int update() {
       
     Vector3 mousePos = fillCamera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));  
@@ -69,15 +69,15 @@ public class SceneAwardScreen implements Scene{
         return 0;
       }
     } else {
-        restartSprite.setTexture(restart);
+      restartSprite.setTexture(restart);
     }
 
     return sceneId;
   }
 
-    /**
-     * Draw the scene
-     */
+  /**
+   * Draw the scene.
+   */
   public void draw(SpriteBatch batch) {
     Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
