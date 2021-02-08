@@ -161,7 +161,7 @@ public class PlayerBoat extends Boat {
     if (diffLevel == 2) {
       staminaRegen *= 0.7f; 
       staminaUsage *= 1.3f; 
-      durabilityPerHit *= 1.7f; 
+      durabilityPerHit *= 2.0f; 
     }
     if (diffLevel == 3) {
       staminaRegen *= 0.4f;
