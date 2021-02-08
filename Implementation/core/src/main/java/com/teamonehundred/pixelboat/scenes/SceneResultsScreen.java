@@ -62,7 +62,7 @@ public class SceneResultsScreen implements Scene {
     if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
       // don't leave if this is the final results screen
       for (Boat b : boats) {
-        if (b.getLegTimes().size() > 3) {
+        if (b.getLegTimes().size() >= 3) {
           float highest = -1f;
           Boat winner = null;
           for (Boat boatyboat : boats) {
