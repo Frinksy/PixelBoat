@@ -150,7 +150,7 @@ public class SceneResultsScreen implements Scene {
 
       // Using label template format draw the name of boat, time of just completed leg,
       // race penalty added
-      // Sleeps so that list can be populated
+      // Sleeps so that list can be populated (Problem from previous group)
       try {
         Thread.sleep(1);
       } catch (InterruptedException e) {
