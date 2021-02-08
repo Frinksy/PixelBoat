@@ -47,6 +47,9 @@ public class DiffTest {
     application = null;
   }
    
+  /**
+   * tests set diff for easy difficulty.
+   */
 
   @Test
   public void testEasy() {
@@ -66,6 +69,9 @@ public class DiffTest {
     assertEquals(expectedDurabilityPerHit, testBoat.getDurabilityPerHit(), 
         "Easy: Stamina regain does not match");
   }
+  /**
+   *  tests setDiff for medium difficulty.
+   */
 
   @Test
   public void testMedium() {
@@ -87,6 +93,9 @@ public class DiffTest {
 
   }
 
+  /**
+   * test setDiff for hard difficulty.
+   */
   @Test
   public void testHard() {
     int diffLevel = 3;
