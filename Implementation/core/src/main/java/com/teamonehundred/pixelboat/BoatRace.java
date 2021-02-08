@@ -208,13 +208,6 @@ public class BoatRace {
         boat.setEndTime(
             (long) (boat.getStartTime(false) + ((1000.0 / 60.0) * boat.getFramesRaced())));
         boat.setLegTime();
-      //   if trial leg 
-        if (legNo ==0){
-          boat.setTrialLeg();
-          boat.setStartTime(0);
-          boat.setEndTime(0);
-          legNo+=1;
-       }
         
 
         boat.setHasFinishedLeg(true);

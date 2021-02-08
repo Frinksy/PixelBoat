@@ -429,15 +429,7 @@ public abstract class Boat extends MovableObject implements CollisionObject {
    * @return long time in milliseconds.
    */
   public long getBestTime() {
-    long currentBest = -1;
-
-    for (long time : legTimes) {
-      if (time > currentBest) {
-        currentBest = time;
-      }
-    }
-
-    return currentBest;
+    return legTimes.get(1) + legTimes.get(2);
   }
   /**
    * Sets time of trial leg to zero
@@ -445,8 +437,7 @@ public abstract class Boat extends MovableObject implements CollisionObject {
    * 
    */
   public void setTrialLeg() {
-    long zero =0;
-    legTimes.set(0, zero);
+    legTimes.set(0, 0l);
   }
 }
 
