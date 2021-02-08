@@ -263,4 +263,18 @@ public class PlayerBoat extends Boat {
     durabilityBar.setSize((int) (uiBarWidth * durability), 10);
   }
 
+  /**
+   * getter for staminaRegain
+   * @return Float staminaRegain
+   */
+  public float getStaminaRegain(){
+    return staminaRegen;
+  }
+  public float getStaminaUsage(){
+    return staminaUsage;
+  }
+  public float getDurabilityPerHit(){
+    return durabilityPerHit;
+  }
+
 }
