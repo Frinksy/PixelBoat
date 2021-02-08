@@ -139,7 +139,11 @@ public class SceneMainGame implements Scene {
       }
 
     }
-
+    
+    System.out.println(player.durability);
+    if (player.hasDied()){
+      return 9;
+    }
 
     if (player.hasFinishedLeg()) {
       // while (!race.isFinished()) race.runStep();

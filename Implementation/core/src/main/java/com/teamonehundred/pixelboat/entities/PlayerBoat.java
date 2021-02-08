@@ -349,4 +349,16 @@ public class PlayerBoat extends Boat {
   }
 
 
+  /**
+  * Has the player died.
+  *
+  * @return has the player died?
+  */
+  public boolean hasDied() {
+    if (this.durability <= 0.1f) {
+      return true;
+    }
+    return false;
+  }
+
 }
