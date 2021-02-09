@@ -1,13 +1,18 @@
 package com.gnocchigames.pixelboat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.teamonehundred.pixelboat.BoatRace;
 import com.teamonehundred.pixelboat.GameState;
 import com.teamonehundred.pixelboat.PixelBoat;
@@ -31,14 +36,15 @@ import org.mockito.Mockito;
 public class GameStateTest {
 
   private static Application application;
-  private SceneMainGame game;
   private BoatRace race;
+  private static PixelBoat game;
 
   /**
    * .
    */
   @BeforeAll
   public static void setupTest() {
+    
     application = new HeadlessApplication(new ApplicationListener() {
 
       @Override public void create() {}
@@ -68,28 +74,46 @@ public class GameStateTest {
   }
 
   /**
+   * Setup before each test.
+   */
+  @BeforeEach
+  public void setupTestEach() {
+    game = Mockito.mock(PixelBoat.class);
+    game.assets = Mockito.mock(AssetManager.class);
+    Texture boatTexture = new Texture("boat.png"); 
+    when(game.assets.get(anyString(), eq(Texture.class))).thenReturn(boatTexture);
+    when(game.assets.get(anyString())).thenReturn(boatTexture);
+  }
+
+  /**
    * Test getPlayerIndex.
    */
   @Test
   public void testPlayerIndex() {
 
-    SceneMainGame game = new SceneMainGame();
+    // PixelBoat app = Mockito.mock(PixelBoat.class);
+    // app.assets = Mockito.mock(AssetManager.class);
+    // Texture boatTexture = new Texture("boat.png"); 
+    // when(app.assets.get(anyString(), eq(Texture.class))).thenReturn(boatTexture);
+    // when(app.assets.get(anyString())).thenReturn(boatTexture);
+
+    SceneMainGame gameScene = new SceneMainGame(game);
 
     // Create GameState object
 
     GameState testState = new GameState(
-        game.getAllBoats(),
-        game.getPlayer(),
-        game.getRace().obstacles,
-        game.getRace().powerups,
-        game.getLegNumber(),
-        game.isLastRun(),
-        game.getRace().isFinished(),
-        game.getRace().totalFrames
+        gameScene.getAllBoats(),
+        gameScene.getPlayer(),
+        gameScene.getRace().obstacles,
+        gameScene.getRace().powerups,
+        gameScene.getLegNumber(),
+        gameScene.isLastRun(),
+        gameScene.getRace().isFinished(),
+        gameScene.getRace().totalFrames
     );
 
     // Test getPlayerIndex
-    int expectedPlayerIndex = game.getAllBoats().indexOf(game.getPlayer());
+    int expectedPlayerIndex = gameScene.getAllBoats().indexOf(gameScene.getPlayer());
 
     assertEquals(
         expectedPlayerIndex,
@@ -103,25 +127,25 @@ public class GameStateTest {
   @Test
   public void testBoatList() {
 
-    SceneMainGame game = new SceneMainGame();
+    SceneMainGame gameScene = new SceneMainGame(game);
 
     // Create GameState object
 
     GameState testState = new GameState(
-        game.getAllBoats(),
-        game.getPlayer(),
-        game.getRace().obstacles,
-        game.getRace().powerups,
-        game.getLegNumber(),
-        game.isLastRun(),
-        game.getRace().isFinished(),
-        game.getRace().totalFrames
+        gameScene.getAllBoats(),
+        gameScene.getPlayer(),
+        gameScene.getRace().obstacles,
+        gameScene.getRace().powerups,
+        gameScene.getLegNumber(),
+        gameScene.isLastRun(),
+        gameScene.getRace().isFinished(),
+        gameScene.getRace().totalFrames
     );
 
     // Test getAllBoats.
-    List<Boat> expectedAllBoats = game.getAllBoats();
+    List<Boat> expectedAllBoats = gameScene.getAllBoats();
 
-    List<Boat> actualAllBoats = testState.getBoatList();
+    List<Boat> actualAllBoats = testState.getBoatList(game);
 
     assertEquals(
         expectedAllBoats.size(),
@@ -163,25 +187,28 @@ public class GameStateTest {
 
   @Test
   public void testPowerUps() {
-    SceneMainGame game = new SceneMainGame();
+    
+
+
+    SceneMainGame gameScene = new SceneMainGame(game);
 
     // Create GameState object
 
     GameState testState = new GameState(
-        game.getAllBoats(),
-        game.getPlayer(),
-        game.getRace().obstacles,
-        game.getRace().powerups,
-        game.getLegNumber(),
-        game.isLastRun(),
-        game.getRace().isFinished(),
-        game.getRace().totalFrames
+        gameScene.getAllBoats(),
+        gameScene.getPlayer(),
+        gameScene.getRace().obstacles,
+        gameScene.getRace().powerups,
+        gameScene.getLegNumber(),
+        gameScene.isLastRun(),
+        gameScene.getRace().isFinished(),
+        gameScene.getRace().totalFrames
     );
 
     // Test getPowerupsList.
-    List<CollisionObject> expectedPowerups = game.getRace().powerups;
+    List<CollisionObject> expectedPowerups = gameScene.getRace().powerups;
 
-    List<CollisionObject> actualPowerups = testState.getPowerupsList();
+    List<CollisionObject> actualPowerups = testState.getPowerupsList(game);
 
     assertEquals(
         expectedPowerups.size(),
@@ -220,25 +247,27 @@ public class GameStateTest {
 
   @Test
   public void testCollisionObstacles() {
-    SceneMainGame game = new SceneMainGame();
+    
+
+    SceneMainGame gameScene = new SceneMainGame(game);
     
     // Create GameState object
 
     GameState testState = new GameState(
-        game.getAllBoats(),
-        game.getPlayer(),
-        game.getRace().obstacles,
-        game.getRace().powerups,
-        game.getLegNumber(),
-        game.isLastRun(),
-        game.getRace().isFinished(),
-        game.getRace().totalFrames
+        gameScene.getAllBoats(),
+        gameScene.getPlayer(),
+        gameScene.getRace().obstacles,
+        gameScene.getRace().powerups,
+        gameScene.getLegNumber(),
+        gameScene.isLastRun(),
+        gameScene.getRace().isFinished(),
+        gameScene.getRace().totalFrames
     );
 
     // Test getCollionObjects.
-    List<CollisionObject> expectedObjects = game.getRace().obstacles;
+    List<CollisionObject> expectedObjects = gameScene.getRace().obstacles;
 
-    List<CollisionObject> actualObjects = testState.getCollisionObjects();
+    List<CollisionObject> actualObjects = testState.getCollisionObjects(game);
 
     assertEquals(
         expectedObjects.size(),
