@@ -107,6 +107,8 @@ public class PixelBoat extends ApplicationAdapter {
             ((SceneBoatSelection) allScenes[BOAT_SELECT]).getSpecId(),
             ((SceneDifficulty) allScenes[DIFFICULTY_SELECT]).getdiffLevel());
         ((SceneMainGame) allScenes[GAME_SCENE]).initialize();
+      } else if (newSceneId == MAIN_MENU && sceneId == GAME_OVER_SCENE) {
+        allScenes[GAME_SCENE] = new SceneMainGame(this);
       }
 
 
