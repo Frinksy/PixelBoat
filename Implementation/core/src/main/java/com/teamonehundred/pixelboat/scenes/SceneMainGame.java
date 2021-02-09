@@ -79,7 +79,7 @@ public class SceneMainGame implements Scene {
       allBoats.add(new AiBoat(0, 40, boatTexture));
       allBoats.get(allBoats.size() - 1).setName("AI Boat " + Integer.toString(i));
     }
-    Collections.swap(allBoats, 0, 3); // move player to middle of first group
+    Collections.swap(allBoats, 0, 2); // move player to middle of first group
 
     bg = new Texture("water_background.png");
     bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
@@ -146,11 +146,13 @@ public class SceneMainGame implements Scene {
 
     if (player.hasFinishedLeg()) {
       // while (!race.isFinished()) race.runStep();
-      race.estimateEndTimes();
+      if (!race.isFinished) {
+        race.estimateEndTimes();
+      }
     }
     if (!race.isFinished()) {
       race.runStep();
-    } else if (legNumber < 3) { // only run 3 guaranteed legs
+    } else if (legNumber < 4) { // only run 3 guaranteed legs
       race = new BoatRace(allBoats.subList(0, boatsPerRace), this.parent);
 
       legNumber++;
@@ -164,7 +166,7 @@ public class SceneMainGame implements Scene {
 
       return 4;
 
-    } else if (legNumber == 3) {
+    } else if (legNumber == 4) {
       // sort boats based on best time
       Collections.sort(allBoats, new Comparator<Boat>() {
         @Override
@@ -173,7 +175,15 @@ public class SceneMainGame implements Scene {
         }
       });
 
-      race = new BoatRace(allBoats.subList(0, boatsPerRace), this.parent);
+      // Get index of Player
+      allBoats = allBoats.subList(0, 3);
+      if (!allBoats.contains(player)) {
+        return PixelBoat.GAME_OVER_SCENE;
+      }
+      int playerIndex = allBoats.indexOf(player);
+      Collections.swap(allBoats, playerIndex, 1);
+      
+      race = new BoatRace(allBoats.subList(0, 3), this.parent);
       lastRun = true;
       legNumber++;
 
@@ -181,7 +191,7 @@ public class SceneMainGame implements Scene {
     }
 
     // stay in results after all legs done
-    if (race.isFinished() && legNumber > 3) {
+    if (race.isFinished() && legNumber > 4) {
       return 4;
     }
 
