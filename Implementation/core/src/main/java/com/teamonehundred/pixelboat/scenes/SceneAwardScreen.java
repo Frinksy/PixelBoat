@@ -65,7 +65,6 @@ public class SceneAwardScreen implements Scene {
       restartSprite.setTexture(restartHovered);
 
       if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-        System.out.println("restart");
         return 0;
       }
     } else {
