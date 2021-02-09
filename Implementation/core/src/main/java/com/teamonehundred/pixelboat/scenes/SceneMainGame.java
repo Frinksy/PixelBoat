@@ -129,7 +129,7 @@ public class SceneMainGame implements Scene {
    */
   public int update() {
 
-    if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+    if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
       try {
         saveGame("save");
         return PixelBoat.SAVE_SCENE;
