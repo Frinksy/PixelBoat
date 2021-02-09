@@ -64,15 +64,17 @@ public class SceneResultsScreen implements Scene {
       // don't leave if this is the final results screen
       for (Boat b : boats) {
         if (b.getLegTimes().size() >= 3) {
-          float highest = -1f;
-          Boat winner = null;
+          float lowest = 10000000000000000000000000000000f;
+          boolean playerWins = false;
           for (Boat boatyboat : boats) {
-            if (highest < boatyboat.getBestTime()) {
-              highest = boatyboat.getBestTime();
-              winner = boatyboat;
+            if (lowest > boatyboat.getBestTime()) {
+              lowest = boatyboat.getBestTime();
+              if (boatyboat instanceof PlayerBoat) {
+                playerWins = true;
+              }
             }
           }
-          if (winner.isPlayer) {
+          if (playerWins) {
             return 10;
           } else {
             return 9;

@@ -21,6 +21,7 @@ public class AiBoat extends Boat {
   protected float rayRage;
   protected float rayStepSize;
   protected boolean regen;
+  public boolean isPlayer = false;
 
   /* ################################### //
             CONSTRUCTORS
