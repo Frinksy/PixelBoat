@@ -28,7 +28,6 @@ public class PlayerBoat extends Boat {
   protected Sprite durabilityBar;
 
   public int uiBarWidth = 500;
-  public boolean isPlayer = true;
 
   /* ################################### //
           CONSTRUCTORS
