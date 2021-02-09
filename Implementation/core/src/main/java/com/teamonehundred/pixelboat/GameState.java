@@ -160,7 +160,7 @@ public class GameState implements Serializable {
       obj.durabilityPerHit = boat.durabilityPerHit;
       obj.stamina = boat.stamina;
       obj.staminaUsage = boat.staminaUsage;
-      obj.staminaUsage = boat.staminaRegen;
+      obj.staminaRegen = boat.staminaRegen;
 
       obj.legTimes.addAll(boat.getLegTimes());
       obj.startTime = boat.getStartTime(false);
@@ -302,7 +302,7 @@ public class GameState implements Serializable {
           player.durabilityPerHit = obj.durabilityPerHit;
           player.stamina = obj.stamina;
           player.staminaUsage = obj.staminaUsage;
-          player.staminaUsage = obj.staminaRegen;
+          player.staminaRegen = obj.staminaRegen;
 
           player.legTimes = obj.legTimes;
 
@@ -337,7 +337,7 @@ public class GameState implements Serializable {
           ai.durabilityPerHit = obj.durabilityPerHit;
           ai.stamina = obj.stamina;
           ai.staminaUsage = obj.staminaUsage;
-          ai.staminaUsage = obj.staminaRegen;
+          ai.staminaRegen = obj.staminaRegen;
 
           ai.legTimes = obj.legTimes;
           ai.startTime = obj.startTime;
