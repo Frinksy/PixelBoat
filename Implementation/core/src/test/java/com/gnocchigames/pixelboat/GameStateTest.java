@@ -179,6 +179,51 @@ public class GameStateTest {
           "Class does not match"    
       );
 
+      // Check stats boats are of same class
+      Object[] expectedStats = {     
+          expected.durability,
+          expected.durabilityPerHit,
+          expected.stamina,
+          expected.staminaUsage,
+          expected.staminaRegen,
+          expected.framesRaced,
+          expected.timeToAdd,
+          expected.framesToAnimate,
+          expected.currentAnimationFrame,
+          expected.framesElapsed,
+          expected.hasFinishedLeg,
+          expected.hasStartedLeg,
+          expected.maxSpeed,
+          expected.speed,
+          expected.drag,
+          expected.acceleration,
+          expected.rotationSpeed,
+      };
+
+      Object[] actualStats = {   
+          actual.durability,
+          actual.durabilityPerHit,
+          actual.stamina,
+          actual.staminaUsage,
+          actual.staminaRegen,
+          actual.framesRaced,
+          actual.timeToAdd,
+          actual.framesToAnimate,
+          actual.currentAnimationFrame,
+          actual.framesElapsed,
+          actual.hasFinishedLeg,
+          actual.hasStartedLeg,
+          actual.maxSpeed,
+          actual.speed,
+          actual.drag,
+          actual.acceleration,
+          actual.rotationSpeed,
+      };
+
+      for (int j = 0; j < actualStats.length; j++) {
+        assertEquals(expectedStats[j], actualStats[j], "Stats do not match");
+      }
+
     }
 
 
