@@ -1,5 +1,6 @@
 package com.teamonehundred.pixelboat.entities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
@@ -55,6 +56,10 @@ public abstract class Boat extends MovableObject implements CollisionObject {
    */
   Boat(float x, float y) {
     super(x, y, 80, 100, "boat.png", 4);
+  }
+
+  Boat(float x, float y, Texture texture) {
+    super(x, y, 80, 100, texture, 4);
   }
 
   /**
@@ -368,7 +373,7 @@ public abstract class Boat extends MovableObject implements CollisionObject {
         hasCollidedDrag();  
       } else if (object instanceof PowerUpRotation) {
         hasCollidedRotation();
-      } else {
+      } else if (!(object instanceof ObstacleLaneWall)) {
         hasCollided();
       }
       // if (object instanceof PowerUpSpeed)

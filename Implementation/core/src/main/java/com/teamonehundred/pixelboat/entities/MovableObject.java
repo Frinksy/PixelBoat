@@ -16,7 +16,7 @@ public abstract class MovableObject extends GameObject {
   public float maxSpeed = 15;
   public float speed = 0;
   public float drag = .04f;  // amount speed is reduced by every frame naturally
-  protected float acceleration = .2f;
+  public float acceleration = .2f;
   public float rotationSpeed = 2.f;
 
   /* ################################### //
@@ -36,6 +36,9 @@ public abstract class MovableObject extends GameObject {
     super(x, y, w, h, texturePath);
   }
 
+  MovableObject(float x, float y, int w, int h, Texture texture) {
+    super(x, y, w, h, texture);
+  }
 
   /**
    * A constructor for MovableObject.

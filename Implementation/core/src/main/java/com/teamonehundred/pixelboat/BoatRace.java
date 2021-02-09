@@ -51,6 +51,7 @@ public class BoatRace {
   public long totalFrames = 0;
 
   public int legNo = 0;
+  protected PixelBoat game;
 
   /**
    * Main constructor for a BoatRace.
@@ -61,11 +62,12 @@ public class BoatRace {
    * @author William Walton
    * @author Umer Fakher JavaDoc by Umer Fakher
    */
-  public BoatRace(List<Boat> raceBoats) {
-    laneSep = new Texture("lane_buoy.png");
-    startBanner = new Texture("start_banner.png");
-    bleachersL = new Texture("bleachers_l.png");
-    bleacherR = new Texture("bleachers_r.png");
+  public BoatRace(List<Boat> raceBoats, PixelBoat game) {
+    this.game = game;
+    laneSep = game.assets.get("lane_buoy.png", Texture.class);
+    startBanner = game.assets.get("start_banner.png", Texture.class);
+    bleachersL = game.assets.get("bleachers_l.png", Texture.class);
+    bleacherR = game.assets.get("bleachers_r.png", Texture.class);
 
     boats = new ArrayList<>();
     boats.addAll(raceBoats);
@@ -86,26 +88,34 @@ public class BoatRace {
 
     obstacles = new ArrayList<>();
 
+    Texture branchTexture = game.assets.get("obstacle_branch.png", Texture.class);
     // add some random obstacles
     for (int i = 0; i < 100; i++) {
       obstacles.add(new ObstacleBranch(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              branchTexture
+      ));
     }
 
     for (int i = 0; i < 100; i++) {
       obstacles.add(new ObstacleFloatingBranch(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              branchTexture
+      ));
     }
 
+    Texture duckTexture = game.assets.get("obstacle_duck.png", Texture.class);
     for (int i = 0; i < 100; i++) {
       obstacles.add(new ObstacleDuck(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              duckTexture
+      ));
     }
 
     // add the lane separators
@@ -116,40 +126,54 @@ public class BoatRace {
     }
 
     powerups = new ArrayList<>();
-
+    Texture powerUpSpeedTexture = (Texture) game.assets.get("power_up_speed.png");
     for (int i = 0; i < 100; i++) {
       powerups.add(new PowerUpSpeed(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              powerUpSpeedTexture
+      ));
     }
 
+    Texture powerUpHealthTexture = (Texture) game.assets.get("power_up_health.png");
     for (int i = 0; i < 100; i++) {
       powerups.add(new PowerUpHealth(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              powerUpHealthTexture
+      ));
     }
 
+    Texture powerUpEnergyTexture = (Texture) game.assets.get("power_up_energy.png");
     for (int i = 0; i < 100; i++) {
       powerups.add(new PowerUpEnergy(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              powerUpEnergyTexture
+      ));
     }
 
+    Texture powerUpRotationTexture = (Texture) game.assets.get("power_up_rotation.png");
     for (int i = 0; i < 100; i++) {
       powerups.add(new PowerUpRotation(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              powerUpRotationTexture
+      ));
     }
 
+    Texture powerUpDragTexture = (Texture) game.assets.get("power_up_drag.png");
     for (int i = 0; i < 100; i++) {
       powerups.add(new PowerUpDrag(
               (int) (-(laneWidth * boats.size() / 2)
                     + Math.random() * (laneWidth * boats.size())),
-              (int) (startY + 50 + Math.random() * (endY - startY - 50))));
+              (int) (startY + 50 + Math.random() * (endY - startY - 50)),
+              powerUpDragTexture
+      ));
     }
 
     // Initialise colour of Time Elapsed Overlay

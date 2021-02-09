@@ -67,6 +67,10 @@ public abstract class GameObject {
     sprite.setOriginCenter();
   }
 
+  GameObject(float x, float y, int w, int h, Texture texture) {
+    this(x, y, w, h, texture, 1);
+  }
+
   // animation
 
   /**

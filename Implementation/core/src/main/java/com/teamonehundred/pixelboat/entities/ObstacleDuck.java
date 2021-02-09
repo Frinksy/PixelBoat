@@ -1,5 +1,6 @@
 package com.teamonehundred.pixelboat.entities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -30,6 +31,24 @@ public class ObstacleDuck extends Obstacle {
     speed = .2f;
     rotationSpeed = .2f;
   }
+
+  /**
+   * Create ObstacleDuck with Texture.
+   *
+   * @param x coordinate
+   * @param y coordinate
+   * @param texture texture
+   */
+  public ObstacleDuck(float x, float y, Texture texture) {
+    super(x, y, 30, 30, texture);
+    // give each duck a random rotation
+    sprite.setOriginCenter();
+    sprite.setRotation((float) Math.random() * 360);
+    // have the duck move at a constant speed
+    drag = 0;
+    speed = .2f;
+    rotationSpeed = .2f;
+  } 
 
   /**
    * Updates position of duck obstacle and turns by 1 point.

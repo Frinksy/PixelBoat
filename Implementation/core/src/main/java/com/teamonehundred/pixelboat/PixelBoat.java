@@ -2,7 +2,10 @@ package com.teamonehundred.pixelboat;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.teamonehundred.pixelboat.scenes.Scene;
 import com.teamonehundred.pixelboat.scenes.SceneBoatSelection;
 import com.teamonehundred.pixelboat.scenes.SceneDifficulty;
@@ -50,6 +53,8 @@ public class PixelBoat extends ApplicationAdapter {
   public static int LOAD_SCENE = 7;
   public static int SAVE_SCENE = 8;
 
+  public AssetManager assets;
+
   /**
    * Create method runs when the game starts.
    *
@@ -57,9 +62,14 @@ public class PixelBoat extends ApplicationAdapter {
    */
   @Override
   public void create() {
+
+    assets = new AssetManager();
+    loadAssets();
+    assets.finishLoading();
+
     allScenes = new Scene[9];
     allScenes[MAIN_MENU] = new SceneStartScreen();
-    allScenes[GAME_SCENE] = new SceneMainGame();
+    allScenes[GAME_SCENE] = new SceneMainGame(this);
     allScenes[OPTIONS_SCENE] = new SceneOptionsMenu();
     allScenes[TUTORIAL_SCENE] = new SceneTutorial();
     allScenes[RESULTS_SCENE] = new SceneResultsScreen();
@@ -107,6 +117,7 @@ public class PixelBoat extends ApplicationAdapter {
   @Override
   public void dispose() {
     batch.dispose();
+    assets.dispose();
 
     Gdx.app.exit();
     System.exit(0);
@@ -122,4 +133,60 @@ public class PixelBoat extends ApplicationAdapter {
   public void resize(int width, int height) {
     allScenes[sceneId].resize(width, height);
   }
+
+  private void loadAssets() {
+
+    // Load textures
+    assets.load("bleachers_l.png", Texture.class);
+    assets.load("bleachers_r.png", Texture.class);
+    assets.load("boat_body.png", Texture.class);
+    assets.load("boat_people.png", Texture.class);
+    assets.load("boat_selection_debug.png", Texture.class);
+    assets.load("boat_selection_default.png", Texture.class);
+    assets.load("boat_selection_fastlowdurability.png", Texture.class);
+    assets.load("boat_selection_screen.png", Texture.class);
+    assets.load("boat.png", Texture.class);
+    assets.load("difficulty_options_screen.png", Texture.class);
+    assets.load("durability_texture.png", Texture.class);
+    assets.load("easy_hovered.png", Texture.class);
+    assets.load("easy.png", Texture.class);
+    assets.load("easyButton.png", Texture.class);
+    assets.load("hard_hovered.png", Texture.class);
+    assets.load("hard.png", Texture.class);
+    assets.load("lane_buoy.png", Texture.class);
+    assets.load("load_game_hovered.png", Texture.class);
+    assets.load("load_game.png", Texture.class);
+    assets.load("medium_hovered.png", Texture.class);
+    assets.load("medium.png", Texture.class);
+    assets.load("object_placeholder.png", Texture.class);
+    assets.load("obstacle_branch.png", Texture.class);
+    assets.load("obstacle_duck.png", Texture.class);
+    assets.load("obstacle.png", Texture.class);
+    assets.load("options_menu_back_hovered.png", Texture.class);
+    assets.load("options_menu_back.png", Texture.class);
+    assets.load("options_menu_checkbox_no.png", Texture.class);
+    assets.load("options_menu_checkbox_yes.png", Texture.class);
+    assets.load("options_menu_fullscreen.png", Texture.class);
+    assets.load("power_up_drag.png", Texture.class);
+    assets.load("power_up_energy.png", Texture.class);
+    assets.load("power_up_health.png", Texture.class);
+    assets.load("power_up_rotation.png", Texture.class);
+    assets.load("power_up_speed.png", Texture.class);
+    assets.load("ready_hovered.png", Texture.class);
+    assets.load("ready.png", Texture.class);
+    assets.load("readyButton.png", Texture.class);
+    assets.load("select_arrow.png", Texture.class);
+    assets.load("stamina_texture.png", Texture.class);
+    assets.load("start_banner.png", Texture.class);
+    assets.load("start_menu_options_hovered.png", Texture.class);
+    assets.load("start_menu_options.png", Texture.class);
+    assets.load("start_menu_play_hovered.png", Texture.class);
+    assets.load("start_menu_play.png", Texture.class);
+    assets.load("start_screen.png", Texture.class);
+    assets.load("temp_background.png", Texture.class);
+    assets.load("tutorial_screen.png", Texture.class);
+    assets.load("water_background.png", Texture.class);
+
+  }
+
 }

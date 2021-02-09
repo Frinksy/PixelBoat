@@ -1,5 +1,6 @@
 package com.teamonehundred.pixelboat.entities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import java.util.List;
@@ -34,6 +35,19 @@ public class AiBoat extends Boat {
    */
   public AiBoat(float x, float y) {
     super(x, y);
+
+    initialise();
+  }
+
+  /**
+   * Construct a AiBoat at point (x, y) with default size and with chosen texture.
+   *
+   * @param x bottom left X coordinate 
+   * @param y bottom left Y coordinate
+   * @param texture texture for boat
+   */
+  public AiBoat(float x, float y, Texture texture) {
+    super(x, y, texture);
 
     initialise();
   }

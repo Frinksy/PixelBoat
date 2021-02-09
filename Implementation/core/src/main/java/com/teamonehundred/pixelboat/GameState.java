@@ -160,7 +160,7 @@ public class GameState implements Serializable {
       obj.durabilityPerHit = boat.durabilityPerHit;
       obj.stamina = boat.stamina;
       obj.staminaUsage = boat.staminaUsage;
-      obj.staminaUsage = boat.staminaRegen;
+      obj.staminaRegen = boat.staminaRegen;
 
       obj.legTimes.addAll(boat.getLegTimes());
       obj.startTime = boat.getStartTime(false);
@@ -282,16 +282,17 @@ public class GameState implements Serializable {
    *
    * @return the list of boats from the GameState
    */
-  public List<Boat> getBoatList() {
+  public List<Boat> getBoatList(PixelBoat game) {
     
     List<Boat> output = new ArrayList<Boat>();
+    Texture boatTexture = game.assets.get("boat.png", Texture.class);
     int i = 0;
     for (SerializableGameObject obj : gameObjects) {
 
       if (obj.type.equals(ObjectType.BOAT)) {
         
         if (i == playerBoatIndex) { // Create a PlayerBoat object instead
-          PlayerBoat player = new PlayerBoat(obj.posX, obj.posY);
+          PlayerBoat player = new PlayerBoat(obj.posX, obj.posY, boatTexture);
           player.speed = obj.speed;
           player.isShown = obj.isShown;
           player.getSprite().setRotation(obj.rotation);
@@ -301,7 +302,7 @@ public class GameState implements Serializable {
           player.durabilityPerHit = obj.durabilityPerHit;
           player.stamina = obj.stamina;
           player.staminaUsage = obj.staminaUsage;
-          player.staminaUsage = obj.staminaRegen;
+          player.staminaRegen = obj.staminaRegen;
 
           player.legTimes = obj.legTimes;
 
@@ -326,7 +327,7 @@ public class GameState implements Serializable {
 
         } else {
           // Create an AIBoat
-          AiBoat ai = new AiBoat(obj.posX, obj.posY);
+          AiBoat ai = new AiBoat(obj.posX, obj.posY, boatTexture);
           ai.speed = obj.speed;
           ai.isShown = obj.isShown;
           ai.getSprite().setRotation(obj.rotation);
@@ -336,7 +337,7 @@ public class GameState implements Serializable {
           ai.durabilityPerHit = obj.durabilityPerHit;
           ai.stamina = obj.stamina;
           ai.staminaUsage = obj.staminaUsage;
-          ai.staminaUsage = obj.staminaRegen;
+          ai.staminaRegen = obj.staminaRegen;
 
           ai.legTimes = obj.legTimes;
           ai.startTime = obj.startTime;
@@ -370,15 +371,17 @@ public class GameState implements Serializable {
    *
    * @return the list of collision objects from the GameState (non powerups)
    */
-  public List<CollisionObject> getCollisionObjects() {
+  public List<CollisionObject> getCollisionObjects(PixelBoat game) {
 
     List<CollisionObject> output = new ArrayList<CollisionObject>();
-    Texture laneWallTexture = new Texture("lane_buoy.png");
+    Texture laneWallTexture = game.assets.get("lane_buoy.png", Texture.class);
+    Texture duckTexture = game.assets.get("obstacle_duck.png", Texture.class);
+    Texture branchTexture = game.assets.get("obstacle_branch.png", Texture.class);
 
     for (SerializableGameObject obj : gameObjects) {
       switch (obj.type) {
         case DUCK:
-          ObstacleDuck duck = new ObstacleDuck(obj.posX, obj.posY);
+          ObstacleDuck duck = new ObstacleDuck(obj.posX, obj.posY, duckTexture);
           duck.speed = obj.speed;
           duck.isShown = obj.isShown;
           duck.getSprite().setRotation(obj.rotation);
@@ -386,7 +389,7 @@ public class GameState implements Serializable {
           break;
       
         case BRANCH:
-          ObstacleBranch branch = new ObstacleBranch(obj.posX, obj.posY);
+          ObstacleBranch branch = new ObstacleBranch(obj.posX, obj.posY, branchTexture);
           branch.speed = obj.speed;
           branch.isShown = obj.isShown;
           branch.getSprite().setRotation(obj.rotation);
@@ -395,7 +398,8 @@ public class GameState implements Serializable {
           break;
 
         case FLOATING_BRANCH:
-          ObstacleFloatingBranch floatingBranch = new ObstacleFloatingBranch(obj.posX, obj.posY);
+          ObstacleFloatingBranch floatingBranch = 
+              new ObstacleFloatingBranch(obj.posX, obj.posY, branchTexture);
           floatingBranch.speed = obj.speed;
           floatingBranch.isShown = obj.isShown;
           floatingBranch.getSprite().setRotation(obj.rotation);
@@ -424,16 +428,20 @@ public class GameState implements Serializable {
    *
    * @return the list of powerup objects from the GameState
    */
-  public List<CollisionObject> getPowerupsList() {
+  public List<CollisionObject> getPowerupsList(PixelBoat game) {
     
     List<CollisionObject> output = new ArrayList<CollisionObject>();
 
-
+    Texture energyTexture = game.assets.get("power_up_energy.png", Texture.class);
+    Texture speedTexture = game.assets.get("power_up_speed.png", Texture.class);
+    Texture healthTexture = game.assets.get("power_up_health.png", Texture.class);
+    Texture dragTexture = game.assets.get("power_up_drag.png", Texture.class);
+    Texture rotationTexture = game.assets.get("power_up_rotation.png", Texture.class);
     for (SerializableGameObject obj : gameObjects) {
       switch (obj.type) {
         case POWERUP_ENERGY:
           
-          PowerUpEnergy powerupEnergy = new PowerUpEnergy(obj.posX, obj.posY);
+          PowerUpEnergy powerupEnergy = new PowerUpEnergy(obj.posX, obj.posY, energyTexture);
           powerupEnergy.speed = obj.speed;
           powerupEnergy.isShown = obj.isShown;
           powerupEnergy.getSprite().setRotation(obj.rotation);
@@ -443,7 +451,7 @@ public class GameState implements Serializable {
           break;
 
         case POWERUP_SPEED:
-          PowerUpSpeed powerUpSpeed = new PowerUpSpeed(obj.posX, obj.posY);
+          PowerUpSpeed powerUpSpeed = new PowerUpSpeed(obj.posX, obj.posY, speedTexture);
           powerUpSpeed.speed = obj.speed;
           powerUpSpeed.isShown = obj.isShown;
           powerUpSpeed.getSprite().setRotation(obj.rotation);
@@ -452,7 +460,7 @@ public class GameState implements Serializable {
           break;
 
         case POWERUP_HEALTH:
-          PowerUpHealth powerUpHealth = new PowerUpHealth(obj.posX, obj.posY);
+          PowerUpHealth powerUpHealth = new PowerUpHealth(obj.posX, obj.posY, healthTexture);
           powerUpHealth.speed = obj.speed;
           powerUpHealth.isShown = obj.isShown;
           powerUpHealth.getSprite().setRotation(obj.rotation);
@@ -461,7 +469,7 @@ public class GameState implements Serializable {
           break;
 
         case POWERUP_DRAG:
-          PowerUpDrag powerUpDrag = new PowerUpDrag(obj.posX, obj.posY);
+          PowerUpDrag powerUpDrag = new PowerUpDrag(obj.posX, obj.posY, dragTexture);
           powerUpDrag.speed = obj.speed;
           powerUpDrag.isShown = obj.isShown;
           powerUpDrag.getSprite().setRotation(obj.rotation);
@@ -470,7 +478,8 @@ public class GameState implements Serializable {
           break;
 
         case POWERUP_ROTATION:
-          PowerUpRotation powerUpRotation = new PowerUpRotation(obj.posX, obj.posY);
+          PowerUpRotation powerUpRotation =
+              new PowerUpRotation(obj.posX, obj.posY, rotationTexture);
           powerUpRotation.speed = obj.speed;
           powerUpRotation.isShown = obj.isShown;
           powerUpRotation.getSprite().setRotation(obj.rotation);
