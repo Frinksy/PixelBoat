@@ -7,23 +7,23 @@
 This repository is for developing the single player, Java-based game inspired by the Annual Dragon Boat Race in York. This game's development has now been taken on by Gnocchi Games.
 
 
-## [Website](https://frinksy.github.io/PixelBoat/)
+## [Website](https://frinksy.github.io/PixelBoatWebsite/)
 
-Team 12 Assessment Website.
-Please click the link: https://frinksy.github.io/PixelBoat/
+Team 17 Assessment Website. Contains latest and updated documentation for the project.
+Please click the link: https://frinksy.github.io/PixelBoatWebsite/
 
 ## Description
 
 This repository contains documentation and Java code for the single player, Java-based game inspired by the Annual Dragon Boat Race in York. It aims to capture the excitement of the real event and satisfy the needs of a client at the University of York Computer Science Department.
 
-## Documentation
+## Documentation (Old)
 * [User Requirements](https://github.com/frinksy/PixelBoat/blob/main/Documentation/Req1.pdf)
 * [Architecture](https://github.com/frinksy/PixelBoat/tree/main/Documentation/Arch1.pdf)
 * [Method selection and planning](https://github.com/frinksy/PixelBoat/tree/main/Documentation/Plan1.pdf)
 * [Risk assessment and mitigation](https://github.com/frinksy/PixelBoat/tree/main/Documentation/Risk1.pdf)
 * [Implementation](https://github.com/frinksy/PixelBoat/tree/main/Documentation/Impl1.pdf)
 
-## Production
+## Production (Old)
 ![Gantt Chart](https://github.com/frinksy/PixelBoat/blob/main/images/week8.png?raw=true)
 
 ## Inspiration
