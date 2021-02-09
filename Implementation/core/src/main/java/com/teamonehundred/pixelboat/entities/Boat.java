@@ -127,6 +127,8 @@ public abstract class Boat extends MovableObject implements CollisionObject {
   public void hasCollidedSpeed() {
     if (maxSpeed <= 20) {
       maxSpeed += 3;
+    } else {
+      maxSpeed = 20;
     }
   }
 
