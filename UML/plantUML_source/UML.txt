@@ -8,62 +8,97 @@ interface CollisionObject
 abstract class GameObject
 abstract class MoveableObject
 abstract class Obstacle
+abstract class PowerUp
+class PowerUpSpeed
+class PowerUpHealth
+class PowerUpRotation
+class PowerUpDrag
+class PowerUpEnergy
 class ObstacleBranch
 class ObstacleDuck
 class ObstacleFloatingBranch
 class ObstacleLaneWall
 class PixelBoat
 class PlayerBoat
-class ResultsScreen
+class SceneResultsScreen
 interface Scene
+class SceneDifficulty
 class SceneMainGame
 class SceneOptionsMenu
 class SceneStartScreen
 class SceneTutorial
-class RaceThread
+class SceneAwardScreen
+class SceneGameOver
+class SceneLoadScreen
+class SceneSaveScreen
+interface Serializable
+class GameState
+class SerializableGameObject 
 
 
 
-GameObject <|- MoveableObject
+GameObject <|-- MoveableObject
 
-MoveableObject <|- Obstacle
-CollisionObject <|- Obstacle
-Obstacle <|- ObstacleBranch
-Obstacle <|- ObstacleDuck
-ObstacleBranch <|- ObstacleFloatingBranch
-Obstacle <|- ObstacleLaneWall
+MoveableObject <|-- Obstacle
+CollisionObject <|-- Obstacle
+Obstacle <|-- ObstacleBranch
+Obstacle <|-- ObstacleDuck
+ObstacleBranch <|-- ObstacleFloatingBranch
+Obstacle <|-- ObstacleLaneWall
 
-MoveableObject <|- Boat
-CollisionObject <|- Boat
-Boat <|- PlayerBoat
-Boat <|- AIBoat
+MoveableObject <|-- PowerUp
+CollisionObject <|-- PowerUp
+PowerUp <|-- PowerUpDrag
+PowerUp <|-- PowerUpHealth
+PowerUp <|-- PowerUpEnergy
+PowerUp <|-- PowerUpRotation
+PowerUp <|-- PowerUpSpeed
 
-Scene <|- SceneMainGame
-Scene <|- SceneOptionsMenu
-Scene <|- SceneStartScreen
-Scene <|- SceneTutorial
+MoveableObject <|-- Boat
+CollisionObject <|-- Boat
+Boat <|-- PlayerBoat
+Boat <|-- AIBoat
 
+Scene <|-- SceneMainGame
+Scene <|-- SceneOptionsMenu
+Scene <|-- SceneStartScreen
+Scene <|-- SceneTutorial
+Scene <|-- SceneDifficulty
+Scene <|-- SceneAwardScreen
+Scene <|-- SceneGameOver
+Scene <|-- SceneResultsScreen
+Scene <|-- SceneLoadScreen
+Scene <|-- SceneSaveScreen
+
+Serializable <|-- GameState
+Serializable <|-- SerializableGameObject
 
 
 PixelBoat "1" *-- "1" SceneMainGame
 PixelBoat "1" *-- "1" SceneOptionsMenu
 PixelBoat "1" *-- "1" SceneStartScreen
 PixelBoat "1" *-- "1" SceneTutorial
+PixelBoat "1" *-- "1" SceneLoadScreen
 
 BoatRace "1" *-- "0..*" Obstacle
+BoatRace "1" *-- "0..*" PowerUp
 
 SceneMainGame "1" *-- "1" BoatRace
-SceneMainGame "1" *-- "1" ResultsScreen
-SceneMainGame "1" *-- "0..*" Boat
-
-SceneMainGame +-- RaceThread
+SceneMainGame "1" *-- "1" SceneResultsScreen
+SceneMainGame "1" *-- "1..*" Boat
+SceneMainGame "1" *-- "0..*" GameState
+SceneMainGame "1" *-- "1" SceneSaveScreen
 
 CollisionObject "1" *-- "1" CollisionBounds
+
+GameState "1" *-- "1..*" "SerializableGameObject"
+GameState "1" *-- "1" "ObjectType"
 
 class PixelBoat{
   #all_scenes:Scene[0..*]
   #batch:SpriteBatch
   #scene_id:Integer
+  
   create():void
   render():void
   dispose():void
@@ -77,6 +112,49 @@ interface Scene{
 
 }
 
+class SceneDifficulty{
+  #diffLevel:int
+  #bg:Texture
+  #bgSprite:Sprite
+  #hard:Texture
+  #hardSprite:Texture
+  #med:Texture
+  #medSprite:Sprite
+  #easy:Texture
+  #easySprite:Sprite
+  #ready:Texture
+  #readySprite:Sprite
+  #fillViewport:Viewport
+  #fillCamera:OrthographicCamera
+  
+  finalize():void
+  
+}
+
+class SceneGameOver{
+  #bg:Texture
+  #bgSprite:Sprite
+  #Restart:Texture
+  #RestartSprite:Sprite
+  #fill_viewport:Viewport
+  #fill_camera:OrthographicCamera
+  
+  finalize():void
+}
+
+class SceneAwardScreen{
+  #bg:Texture
+  #bgSprite:Sprite
+  #Restart:Texture
+  #RestartSprite:Sprite
+  #boats:Boat[0..n]
+  #fill_viewport:Viewport
+  #fill_camera:OrthographicCamera
+  
+  findWinners():Boat[3]
+  finalize():void
+}
+
 class SceneTutorial{
   #bg:Texture
   #bg_sprite:Sprite
@@ -88,12 +166,11 @@ class SceneTutorial{
 }
 
 class SceneStartScreen{
-  
   #bg:Texture
   #bg_sprite:Sprite
   #play:Texture
   #play_hovered:Texture
-  #play_sprite:Sprit
+  #play_sprite:Sprite
   #options:Texture
   #options_hovered:Texture
   #options_sprite:Sprite
@@ -135,16 +212,42 @@ class SceneMainGame{
   #all_boats:List<Boat>
   #bg:Texture
   #race:BoatRace
-  #results:ResultsScreen
+  #results:SceneResultsScreen
 
+  finalize():void
+  saveGame(saveName:String):void
+  restoreGame(saveName:String):void
+}
+
+class SceneLoadScreen{
+  #stage:Stage
+  #shouldGoToMenu:boolean
+  #shouldInitialize:boolean
+  #shouldLoadGame:boolean
+  #shouldDelete:boolean
+  #parent:PixelBoat
+  #choose:SelectBox<String>
+  #prefs:Preferences
+  #layout:Table
+  #bg:Texture
+  #bgSprite:Sprite
+  
   finalize():void
 }
 
-class RaceThread{
-  #boats:Boat[0..n]
-  #race:BoatRace
-
-  run():void
+class SceneSaveScreen{
+  #stage:Stage
+  #prefs:Preferences
+  #bg:Texture
+  #bgSprite:Sprite
+  #saveNameInput:TextArea
+  #layout:Table
+  #shouldSave:boolean
+  #shouldCancel:boolean
+  #shouldInitialize:boolean
+  #parent:PixelBoat
+  
+  finalize():void
 }
 
 class BoatRace{
@@ -155,6 +258,7 @@ class BoatRace{
   #bleachers_l:Texture
   #bleachers_r:Texture
   #obstacles:CollisionObject[0..n]
+  #powerups:CollisionObject[0..n]
   #start_y:integer
   #end_y:integer
   #lane_width:integer
@@ -171,7 +275,7 @@ class BoatRace{
   drawLegTimeDisplay(batch:SpriteBatch,b:Boat):void
 }
 
-class ResultsScreen{
+class SceneResultsScreen{
   #boats:Boat[0..n]
   
   update():boolean
@@ -230,6 +334,11 @@ abstract class Boat{
   #has_started_leg:boolean
   
   hasCollided():void
+  hasCollidedSpeed():void
+  hasCollidedHealth():void
+  hasCollidedEnergy():void
+  hasCollidedRotation():void
+  hasCollidedDrag():void
   addFrameRaced(frames_raced:long):void
   getCalcTime():long
   setLegTime():void
@@ -266,6 +375,7 @@ class PlayerBoat{
   getUISprites():Sprite[0..n]
   resetCameraPos():void
   updaetUISprites():void 
+  hasDied():boolean
 }
 
 abstract class Obstacle{
@@ -300,4 +410,80 @@ class CollisionBounds{
   rectOnRectCollides(r1:Rectangle, rot1:float, o1:Vector2, r2:Rectangle, rot2:float, o2:Vector2):boolean
 
 }
+
+class GameState{
+  #serialVersionUID:long
+  #gameObjects:List<SerializableGameObject>
+  #playerBoatIndex:int
+  #legNumber:int
+  #lastRun:boolean
+  #isFinished:boolean
+  #totalFrames:long
+}
+
+enum ObjectType{
+  Boat
+  DUCK
+  BRANCH
+  FLOATING_BRANCH
+  LANE_WALL
+  POWERUP_SPEED
+  POWERUP_ENERGY
+  POWERUP_HEALTH
+}
+
+class SerializableGameObject{
+  #serialVersionUID:long
+  #x:float
+  #y:float
+  #width:float
+  #height:float
+  #rotation:float
+  #ObjectType:type
+  #speed:float
+  #is_shown:Boolean
+  #name:String
+  #durability:float
+  #durability_per_hit:float
+  #stamina:float
+  #stamina_usage:float
+  #stamina_regen:float
+  #leg_times:List<long>
+  #start_time:long
+  #end_time:long
+  #frames_raced:long
+  #time_to_add:long
+  #time_since_start:long
+  #time_leg:long
+  #frames_to_animate:int
+  #current_animation_frame:int
+  #frames_elapsed:int
+  #has_finished_leg:boolean
+  #has_started_leg:boolean
+}
+
+abstract class PowerUp{
+  hasCollided():void
+}
+
+class PowerUpSpeed{
+
+}
+
+class PowerUpDrag{
+
+}
+
+class PowerUpEnergy{
+
+}
+
+class PowerUpHealth{
+
+}
+
+class PowerUpRotation{
+
+}
+
 @enduml

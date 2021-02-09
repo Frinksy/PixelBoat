@@ -2,6 +2,7 @@
 class AIBoat
 abstract class Boat
 class BoatRace
+class GameState
 class CollisionBounds
 interface CollisionObject
 abstract class GameObject
@@ -11,35 +12,65 @@ class ObstacleBranch
 class ObstacleDuck
 class ObstacleFloatingBranch
 class ObstacleLaneWall
+abstract class PowerUp
+class PowerUpSpeed
+class PowerUpDrag
+class PowerUpEnergy
+class PowerUpHealth
+class PowerUpRotation
 class PixelBoat
 class PlayerBoat
-class ResultsScreen
+class SceneResultsScreen
 interface Scene
+class SceneDifficulty
 class SceneMainGame
 class SceneOptionsMenu
 class SceneStartScreen
 class SceneTutorial
-class RaceThread
+class SceneAwardScreen
+class SceneGameOver
+class SceneLoadScreen
+class SceneSaveScreen
+interface Serializable
+class GameState
+class SerializableGameObject
+enum ObjectType
 
 
+GameObject <|-- MoveableObject
 
-GameObject <|- MoveableObject
+MoveableObject <|-- Obstacle
+CollisionObject <|-- Obstacle
+Obstacle <|-- ObstacleBranch
+Obstacle <|-- ObstacleDuck
+ObstacleBranch <|-- ObstacleFloatingBranch
+Obstacle <|-- ObstacleLaneWall
 
-MoveableObject <|- Obstacle
-CollisionObject <|- Obstacle
-Obstacle <|- ObstacleBranch
-Obstacle <|- ObstacleDuck
-ObstacleBranch <|- ObstacleFloatingBranch
-Obstacle <|- ObstacleLaneWall
+MoveableObject <|-- PowerUp
+CollisionObject <|-- PowerUp
+PowerUp <|-- PowerUpEnergy
+PowerUp <|-- PowerUpSpeed
+PowerUp <|-- PowerUpRotation
+PowerUp <|-- PowerUpDrag
+PowerUp <|-- PowerUpHealth
 
-MoveableObject <|- Boat
-CollisionObject <|- Boat
-Boat <|- PlayerBoat
-Boat <|- AIBoat
+MoveableObject <|-- Boat
+CollisionObject <|-- Boat
+Boat <|-- PlayerBoat
+Boat <|-- AIBoat
 
-Scene <|- SceneMainGame
-Scene <|- SceneOptionsMenu
-Scene <|- SceneStartScreen
-Scene <|- SceneTutorial
+Scene <|-- SceneMainGame
+Scene <|-- SceneOptionsMenu
+Scene <|-- SceneStartScreen
+Scene <|-- SceneTutorial
+Scene <|-- SceneDifficulty
+Scene <|-- SceneResultsScreen
+Scene <|-- SceneAwardScreen
+Scene <|-- SceneGameOver
+Scene <|-- SceneLoadScreen
+Scene <|-- SceneSaveScreen
+
+Serializable <|-- GameState
+Serializable <|-- SerializableGameObject
 
 @enduml
