@@ -47,6 +47,19 @@ public class PlayerBoat extends Boat {
   }
 
   /**
+   * Create a PlayerBoat with a Texture.
+   *
+   * @param x coordinate
+   * @param y coordinate
+   * @param texture the texture
+   */
+  public PlayerBoat(float x, float y, Texture texture) {
+    super(x, y, texture);
+
+    initialise();
+  }
+
+  /**
    * Construct a PlayerBoat object with at point (x,y) with width and height and texture path
    * with default stats (stamina usage, durability, etc).
    *

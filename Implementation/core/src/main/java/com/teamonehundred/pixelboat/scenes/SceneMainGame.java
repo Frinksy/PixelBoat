@@ -50,7 +50,7 @@ public class SceneMainGame implements Scene {
 
   protected boolean lastRun = false;
 
-  protected PixelBoat parent;
+  public PixelBoat parent;
 
   /**
    * Main constructor for a SceneMainGame.
@@ -59,7 +59,8 @@ public class SceneMainGame implements Scene {
    *
    * @author William Walton
    */
-  public SceneMainGame() {
+  public SceneMainGame(PixelBoat parent) {
+    this.parent = parent;
     initialize();
   }
 
@@ -67,13 +68,15 @@ public class SceneMainGame implements Scene {
    * Initialize SceneMainGame and all its elements.
    */
   public void initialize() {
-    player = new PlayerBoat(-15, 0);
+    Texture boatTexture = parent.assets.get("boat.png", Texture.class);
+
+    player = new PlayerBoat(-15, 0, boatTexture);
     player.setName("Player");
     allBoats = new ArrayList<>();
 
     allBoats.add(player);
     for (int i = 0; i < (boatsPerRace * groupsPerGame) - 1; i++) {
-      allBoats.add(new AiBoat(0, 40));
+      allBoats.add(new AiBoat(0, 40, boatTexture));
       allBoats.get(allBoats.size() - 1).setName("AI Boat " + Integer.toString(i));
     }
     Collections.swap(allBoats, 0, 3); // move player to middle of first group
@@ -81,7 +84,7 @@ public class SceneMainGame implements Scene {
     bg = new Texture("water_background.png");
     bg.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
-    race = new BoatRace(allBoats.subList(0, boatsPerRace));
+    race = new BoatRace(allBoats.subList(0, boatsPerRace), this.parent);
     legNumber++;
   }
 
@@ -145,7 +148,7 @@ public class SceneMainGame implements Scene {
     if (!race.isFinished()) {
       race.runStep();
     } else if (legNumber < 3) { // only run 3 guaranteed legs
-      race = new BoatRace(allBoats.subList(0, boatsPerRace));
+      race = new BoatRace(allBoats.subList(0, boatsPerRace), this.parent);
 
       legNumber++;
 
@@ -167,7 +170,7 @@ public class SceneMainGame implements Scene {
         }
       });
 
-      race = new BoatRace(allBoats.subList(0, boatsPerRace));
+      race = new BoatRace(allBoats.subList(0, boatsPerRace), this.parent);
       lastRun = true;
       legNumber++;
 
@@ -283,7 +286,7 @@ public class SceneMainGame implements Scene {
       e.printStackTrace();
     }
 
-    List<Boat> boatList = gameState.getBoatList();
+    List<Boat> boatList = gameState.getBoatList(parent);
     PlayerBoat playerBoat = (PlayerBoat) boatList.get(gameState.getPlayerIndex());
     
     this.allBoats = boatList;
@@ -292,8 +295,8 @@ public class SceneMainGame implements Scene {
     this.legNumber = gameState.legNumber;
     this.lastRun = gameState.lastRun;
     
-    List<CollisionObject> obstacleList = gameState.getCollisionObjects();
-    List<CollisionObject> powerupList = gameState.getPowerupsList();
+    List<CollisionObject> obstacleList = gameState.getCollisionObjects(parent);
+    List<CollisionObject> powerupList = gameState.getPowerupsList(parent);
     
     this.race.boats = boatList.subList(0, boatsPerRace);
     this.race.obstacles = obstacleList;
@@ -306,42 +309,6 @@ public class SceneMainGame implements Scene {
 
   }
 
-
-  /**
-   * RaceThread class for Multi-threading.
-   *
-   * @author William Walton JavaDoc by Umer Fakher
-   */
-  private class RaceThread extends Thread {
-    List<Boat> boats;
-    BoatRace race;
-
-    RaceThread(List<Boat> boats) {
-      this.boats = new ArrayList<>();
-      this.boats.addAll(boats);
-      race = new BoatRace(this.boats);
-    }
-
-    /**
-     * Main run method for RaceThread class.
-     *
-     * <p>Runs race until it has finished.
-     *
-     * @author William Walton
-     */
-    public void run() {
-      while (!race.isFinished()) {
-        race.runStep();
-      }
-
-      try {
-        Thread.sleep(1);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-    }
-  }
 
   /**
    * Getter for sceneId.

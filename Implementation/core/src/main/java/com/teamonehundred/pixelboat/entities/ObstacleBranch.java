@@ -1,5 +1,6 @@
 package com.teamonehundred.pixelboat.entities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -21,6 +22,11 @@ public class ObstacleBranch extends Obstacle {
    * @author William Walton
    */
   public ObstacleBranch(float x, float y) {
+    super(x, y, 60, 60, "obstacle_branch.png");
+    sprite.setRotation(-90 + (float) Math.random() * 180);
+  }
+
+  public ObstacleBranch(float x, float y, Texture texture) {
     super(x, y, 60, 60, "obstacle_branch.png");
     sprite.setRotation(-90 + (float) Math.random() * 180);
   }

@@ -27,6 +27,10 @@ public abstract class Obstacle extends MovableObject implements CollisionObject 
     //todo implement this
   }
 
+  Obstacle(float x, float y, int w, int h, Texture texture) {
+    super(x, y, w, h, texture);
+  }
+
   /**
    * A constructor for an Obstacle taking its position (x and y) and width and height.
    *

@@ -36,6 +36,9 @@ public abstract class MovableObject extends GameObject {
     super(x, y, w, h, texturePath);
   }
 
+  MovableObject(float x, float y, int w, int h, Texture texture) {
+    super(x, y, w, h, texture);
+  }
 
   /**
    * A constructor for MovableObject.

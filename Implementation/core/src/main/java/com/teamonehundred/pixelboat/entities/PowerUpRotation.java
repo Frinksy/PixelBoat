@@ -1,5 +1,6 @@
 package com.teamonehundred.pixelboat.entities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -20,6 +21,18 @@ public class PowerUpRotation extends PowerUp {
    */
   public PowerUpRotation(float x, float y) {
     super(x, y, 60, 60, "power_up_rotation.png");
+    sprite.setRotation(0);
+  }
+
+  /**
+   * A constructor for an PowerUp.
+   *
+   * @param x coordinate
+   * @param y coordinate
+   * @param texture the texture 
+   */
+  public PowerUpRotation(float x, float y, Texture texture) {
+    super(x, y, 60, 60, texture, 1);
     sprite.setRotation(0);
   }
 

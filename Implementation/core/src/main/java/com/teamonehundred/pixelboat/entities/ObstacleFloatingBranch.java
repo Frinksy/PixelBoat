@@ -1,5 +1,7 @@
 package com.teamonehundred.pixelboat.entities;
 
+import com.badlogic.gdx.graphics.Texture;
+
 /**
  * Represents a floating branch obstacle.
  *
@@ -18,6 +20,21 @@ public class ObstacleFloatingBranch extends ObstacleBranch {
    */
   public ObstacleFloatingBranch(float x, float y) {
     super(x, y);
+    // have the branch move at a constant speed
+    drag = 0;
+    speed = 0.3f;
+    sprite.setRotation(-180);
+  }
+
+  /**
+   * Create a floating branch with a texture.
+   *
+   * @param x coordinate
+   * @param y coordinate
+   * @param texture texture
+   */
+  public ObstacleFloatingBranch(float x, float y, Texture texture) {
+    super(x, y, texture);
     // have the branch move at a constant speed
     drag = 0;
     speed = 0.3f;
