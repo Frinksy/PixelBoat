@@ -373,7 +373,7 @@ public abstract class Boat extends MovableObject implements CollisionObject {
         hasCollidedDrag();  
       } else if (object instanceof PowerUpRotation) {
         hasCollidedRotation();
-      } else {
+      } else if (!(object instanceof ObstacleLaneWall)) {
         hasCollided();
       }
       // if (object instanceof PowerUpSpeed)
