@@ -36,8 +36,8 @@ public class SceneMainGame implements Scene {
 
   protected int legNumber = 0;
 
-  protected int boatsPerRace = 7;
-  protected int groupsPerGame = 3;
+  protected int boatsPerRace = 5;
+  protected int groupsPerGame = 1;
 
   protected PlayerBoat player;
   protected List<Boat> allBoats;
@@ -139,7 +139,10 @@ public class SceneMainGame implements Scene {
       }
 
     }
-
+    
+    if (player.hasDied()) {
+      return 9;
+    }
 
     if (player.hasFinishedLeg()) {
       // while (!race.isFinished()) race.runStep();

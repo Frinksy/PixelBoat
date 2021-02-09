@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.teamonehundred.pixelboat.scenes.Scene;
+import com.teamonehundred.pixelboat.scenes.SceneAwardScreen;
 import com.teamonehundred.pixelboat.scenes.SceneBoatSelection;
 import com.teamonehundred.pixelboat.scenes.SceneDifficulty;
+import com.teamonehundred.pixelboat.scenes.SceneGameOver;
 import com.teamonehundred.pixelboat.scenes.SceneLoadScreen;
 import com.teamonehundred.pixelboat.scenes.SceneMainGame;
 import com.teamonehundred.pixelboat.scenes.SceneOptionsMenu;
@@ -52,6 +54,8 @@ public class PixelBoat extends ApplicationAdapter {
   public static int DIFFICULTY_SELECT = 6;
   public static int LOAD_SCENE = 7;
   public static int SAVE_SCENE = 8;
+  public static int GAME_OVER_SCENE = 9;
+  public static int AWARD_SCENE = 10;
 
   public AssetManager assets;
 
@@ -67,7 +71,7 @@ public class PixelBoat extends ApplicationAdapter {
     loadAssets();
     assets.finishLoading();
 
-    allScenes = new Scene[9];
+    allScenes = new Scene[11];
     allScenes[MAIN_MENU] = new SceneStartScreen();
     allScenes[GAME_SCENE] = new SceneMainGame(this);
     allScenes[OPTIONS_SCENE] = new SceneOptionsMenu();
@@ -77,6 +81,8 @@ public class PixelBoat extends ApplicationAdapter {
     allScenes[DIFFICULTY_SELECT] = new SceneDifficulty();
     allScenes[LOAD_SCENE] = new SceneLoadScreen(this);
     allScenes[SAVE_SCENE] = new SceneSaveScreen(this);
+    allScenes[GAME_OVER_SCENE] = new SceneGameOver();
+    allScenes[AWARD_SCENE] = new SceneAwardScreen();
     batch = new SpriteBatch();
   }
 

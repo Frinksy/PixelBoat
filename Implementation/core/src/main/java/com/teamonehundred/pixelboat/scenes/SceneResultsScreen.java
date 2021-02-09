@@ -13,6 +13,7 @@ import com.teamonehundred.pixelboat.entities.Boat;
 import com.teamonehundred.pixelboat.entities.PlayerBoat;
 import java.util.List;
 
+
 /**
  * Scene Class for Results Screen. Contains all functionality
  * for Displaying results screen after each leg.
@@ -62,9 +63,22 @@ public class SceneResultsScreen implements Scene {
     if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
       // don't leave if this is the final results screen
       for (Boat b : boats) {
-        if (b.getLegTimes().size() > 3) {
-          return sceneId;
-        
+        if (b.getLegTimes().size() >= 3) {
+          float lowest = 10000000000000000000000000000000f;
+          boolean playerWins = false;
+          for (Boat boatyboat : boats) {
+            if (lowest > boatyboat.getBestTime()) {
+              lowest = boatyboat.getBestTime();
+              if (boatyboat instanceof PlayerBoat) {
+                playerWins = true;
+              }
+            }
+          }
+          if (playerWins) {
+            return 10;
+          } else {
+            return 9;
+          }
         }
       }
       return 1;
@@ -138,6 +152,13 @@ public class SceneResultsScreen implements Scene {
 
       // Using label template format draw the name of boat, time of just completed leg,
       // race penalty added
+      // Sleeps so that list can be populated (Problem from previous group)
+      try {
+        Thread.sleep(1);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        return;
+      }
       String labelText = String.format(labelTemplate, b.getName(),
           b.getLegTimes().get(b.getLegTimes().size() - 1), b.getTimeToAdd());
 
