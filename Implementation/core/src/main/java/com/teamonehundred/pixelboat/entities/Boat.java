@@ -40,6 +40,7 @@ public abstract class Boat extends MovableObject implements CollisionObject {
 
   public boolean hasFinishedLeg = false;
   public boolean hasStartedLeg = false;
+  public boolean isPlayer = false;
 
   /* ################################### //
           CONSTRUCTORS
@@ -424,6 +425,10 @@ public abstract class Boat extends MovableObject implements CollisionObject {
 
   public void setHasStartedLeg(boolean hasStartedLeg) {
     this.hasStartedLeg = hasStartedLeg;
+  }
+
+  public boolean isPlayer() {
+    return isPlayer;
   }
 
   /**

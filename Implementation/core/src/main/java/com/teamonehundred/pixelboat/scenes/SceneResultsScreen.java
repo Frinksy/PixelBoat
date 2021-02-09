@@ -72,7 +72,7 @@ public class SceneResultsScreen implements Scene {
               winner = boatyboat;
             }
           }
-          if (winner instanceof PlayerBoat) {
+          if (winner.isPlayer) {
             return 10;
           } else {
             return 9;
