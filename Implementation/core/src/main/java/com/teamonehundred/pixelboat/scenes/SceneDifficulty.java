@@ -152,7 +152,6 @@ public class SceneDifficulty implements Scene {
       hardSprite.setTexture(hardHovered);
 
       if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-        System.out.println("hard");
         diffLevel = 3;
       }
 
@@ -165,7 +164,6 @@ public class SceneDifficulty implements Scene {
       medSprite.setTexture(medHovered);
 
       if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-        System.out.println("med");
         diffLevel = 2;
       }
 
@@ -178,7 +176,6 @@ public class SceneDifficulty implements Scene {
       easySprite.setTexture(easyHovered);
 
       if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-        System.out.println("esay");
         diffLevel = 1;
       }
     } else {

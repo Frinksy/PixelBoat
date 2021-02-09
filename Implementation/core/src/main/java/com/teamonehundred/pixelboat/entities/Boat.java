@@ -173,7 +173,6 @@ public abstract class Boat extends MovableObject implements CollisionObject {
    * 
    */
   public void hasCollidedDrag() {
-    System.out.println(drag);
     if (drag > 0.022f) {
       drag -= 0.002f;
     } else {
